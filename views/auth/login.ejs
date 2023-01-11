@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=
+    , initial-scale=1.0"
+    />
+    <title>Trang đăng nhập</title>
+  </head>
+  <style>
+    .error {
+      color: red;
+      background-color: lightpink;
+      padding: 5px 8px;
+    }
+    .success {
+      color: green;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1>Đăng nhập</h1>
+      <%- err %>
+      <form method="post" action="/login">
+        <label for="username">Tên đăng nhập</label><br />
+        <input type="text" name="username" />
+        <br />
+        <label for="password">Mật khẩu</label><br />
+        <input type="password" name="password" />
+        <br />
+        <input type="submit" value="Đăng nhập" />
+      </form>
+    </div>
+  </body>
+</html>
