@@ -8,6 +8,7 @@ const port = 2222;
 
 // import modules
 const auth = require("./auth");
+const contentNegotiator = require("./content-negotiation");
 
 // view engine configuration
 app.set("view engine", "ejs");
@@ -25,6 +26,7 @@ app.use(
 
 // routers
 auth(app);
+contentNegotiator(app);
 
 app.listen(port, () => {
   console.log(`listening on port http://localhost:${port}`);
