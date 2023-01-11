@@ -14,6 +14,7 @@ const contentNegotiator = require("./content-negotiation");
 const cookieSessionFn = require("./cookie-sessions");
 const cookies = require("./cookies");
 const downloads = require("./downloads");
+const multipleRouters = require("./multi-router");
 
 // view engine configuration
 app.set("view engine", "ejs");
@@ -37,7 +38,13 @@ contentNegotiator(app);
 cookieSessionFn(app);
 cookies(app);
 downloads(app);
+multipleRouters(app);
 
+app.use("/*", (req, res, next) => {
+  res.status(400).json({
+    message: "Not found",
+  });
+});
 app.listen(port, () => {
   console.log(`listening on port http://localhost:${port}`);
 });
