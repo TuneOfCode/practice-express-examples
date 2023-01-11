@@ -13,6 +13,7 @@ const auth = require("./auth");
 const contentNegotiator = require("./content-negotiation");
 const cookieSessionFn = require("./cookie-sessions");
 const cookies = require("./cookies");
+const downloads = require("./downloads");
 
 // view engine configuration
 app.set("view engine", "ejs");
@@ -35,6 +36,7 @@ auth(app);
 contentNegotiator(app);
 cookieSessionFn(app);
 cookies(app);
+downloads(app);
 
 app.listen(port, () => {
   console.log(`listening on port http://localhost:${port}`);
