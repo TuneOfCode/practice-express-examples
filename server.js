@@ -5,12 +5,14 @@ const app = express();
 const path = require("path");
 const session = require("express-session");
 const cookieSession = require("cookie-session");
+const cookieParser = require("cookie-parser");
 const port = 2222;
 
 // import modules
 const auth = require("./auth");
 const contentNegotiator = require("./content-negotiation");
 const cookieSessionFn = require("./cookie-sessions");
+const cookies = require("./cookies");
 
 // view engine configuration
 app.set("view engine", "ejs");
@@ -18,6 +20,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // middleware
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser("secret"));
 app.use(cookieSession({ secret: "secret", httpOnly: true }));
 app.use(
   session({
@@ -31,6 +34,7 @@ app.use(
 auth(app);
 contentNegotiator(app);
 cookieSessionFn(app);
+cookies(app);
 
 app.listen(port, () => {
   console.log(`listening on port http://localhost:${port}`);
