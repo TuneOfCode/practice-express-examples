@@ -1,0 +1,18 @@
+<%- include('__header') -%>
+
+<div class="card d-block mt-5 m-auto" style="width: 18rem">
+  <img
+    src="<%= course.thumbnailUrl %>"
+    class="card-img-top"
+    alt="<%= course.name %>"
+  />
+  <div class="card-body text-center">
+    <h5 class="card-title"><%= course.name %></h5>
+    <p class="card-text text-muted">Số lượng: <%= course.quantity %></p>
+    <p class="card-text text-muted">
+      Đơn giá: <%= course.price %> <%= course.unit %>
+    </p>
+  </div>
+</div>
+
+<%- include('__footer') -%>

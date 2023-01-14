@@ -16,6 +16,7 @@ const cookies = require("./cookies");
 const downloads = require("./downloads");
 const multipleRouters = require("./multi-router");
 const multipartFn = require("./multipart");
+const mvc = require("./mvc");
 
 // view engine configuration
 app.set("view engine", "ejs");
@@ -41,6 +42,7 @@ cookies(app);
 downloads(app);
 multipleRouters(app);
 multipartFn(app);
+mvc(app);
 
 app.use("/*", (req, res, next) => {
   res.status(400).json({

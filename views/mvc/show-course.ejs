@@ -1,0 +1,384 @@
+<%- include('__header') -%>
+<div class="container">
+  <h1 class="mt-5 text-center text-success">Tất cả các hoá học</h1>
+  <!-- Tạo khoá học -->
+  <button class="mt-2 btn btn-outline-primary d-block m-auto" 
+            data-bs-toggle="modal"
+            data-bs-target="#createCourseModal">
+            <i class="fa-solid fa-plus"></i>
+    </button>
+  <!-- Modal tạo khoá học -->
+          <div
+            class="modal fade"
+            id="createCourseModal"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="editCourseModalLabel"
+            aria-hidden="true"
+          >
+            <div
+              class="modal-dialog modal-dialog-centered"
+              style="width: 760px; left: 52px"
+            >
+              <div class="modal-content">
+                <form action="/courses" method="post">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="editCourseModalLabel">
+                    Tạo khoá học
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Mã khoá học</span
+                        >
+                        <input
+                          type="text"
+                          name="courseId"
+                          class="form-control"
+                          aria-label="courseId"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Tên khoá học</span
+                        >
+                        <input
+                          type="text"
+                          name="name"
+                          class="form-control"
+                          aria-label="name"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Số lượng</span
+                        >
+                        <input
+                          type="number"
+                          min="1"
+                          name="quantity"
+                          class="form-control"
+                          aria-label="quantity"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Đơn giá</span
+                        >
+                        <input
+                          type="number"
+                          min="100"
+                          name="price"
+                          class="form-control"
+                          aria-label="price"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Đơn vị tiền tệ</span
+                        >
+                        <select class="form-select" name="unit">
+                            <option selected value="vnđ">VNĐ</option>
+                            <option value="usd">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Đường dẫn ảnh nền khoá học</span
+                        >
+                        <input
+                          type="text"
+                          name="thumbnailUrl"
+                          class="form-control"
+                          aria-label="thumbnailUrl"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-dismiss="modal"
+                  >
+                    Huỷ bỏ
+                  </button>
+                  <button type="submit" class="btn btn-outline-primary"> Tạo </button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+  <table class="mt-5 table table-bordered">
+    <thead class="table-dark text-center">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col"></th>
+        <th scope="col">Tên khoá học</th>
+        <th scope="col">Số lượng</th>
+        <th scope="col">Đơn giá</th>
+        <th scope="col">Đơn vị tiền tệ</th>
+        <th scope="col">Chức năng</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider text-center fs-5">
+        
+    <% for(var i=0; i<courses.length; i++) { %>
+      <tr>
+        <th scope="row"><%= courses[i].courseId %></th>
+        <td><img src="<%= courses[i].thumbnailUrl %>" alt="Ảnh khoá học <%= courses[i].name %>" width="100px" height="80px" /></td>
+        <td class="fw-bold text-start"><%= courses[i].name %></td>
+        <td><%= courses[i].quantity %></td>
+        <td><%= courses[i].price %></td>
+        <td><%= courses[i].unit %></td>
+        <td>
+          <!-- Xem chi tiết 1 khoá học -->
+          <a href="/course/<%= courses[i].courseId %>/detail" class="btn btn-outline-success">
+            <i class="fa-solid fa-eye"></i>
+          </a>
+          <!-- Sửa một khoá học -->
+          <button
+            class="btn btn-outline-warning"
+            data-bs-toggle="modal"
+            data-bs-target="#editCourseModal-<%= courses[i].courseId %>"
+          >
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <!-- Xoá một khoá học -->
+          <button
+            class="btn btn-outline-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#destroyCourseModal-<%= courses[i].courseId %>"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+
+          <!-- Modal sửa khoá học -->
+          <div
+            class="modal fade"
+            id="editCourseModal-<%= courses[i].courseId %>"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="editCourseModalLabel"
+            aria-hidden="true"
+          >
+            <div
+              class="modal-dialog modal-dialog-centered"
+              style="width: 760px; left: 52px"
+            >
+            <form action="/courses/<%= courses[i].courseId %>/edit" method="post">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="editCourseModalLabel">
+                    Cập nhật khoá học <i class="text-muted fw-bold"><%= courses[i].name %></i>
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Mã khoá học</span
+                        >
+                        <input
+                          type="text"
+                          name="courseId"
+                          value="<%= courses[i].courseId %>"
+                          class="form-control"
+                          aria-label="courseId"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Tên khoá học</span
+                        >
+                        <input
+                          type="text"
+                          name="name"
+                          value="<%= courses[i].name %>"
+                          class="form-control"
+                          aria-label="name"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Số lượng</span
+                        >
+                        <input
+                          type="number"
+                          min="1"
+                          name="quantity"
+                          value="<%= courses[i].quantity %>"
+                          class="form-control"
+                          aria-label="quantity"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Đơn giá</span
+                        >
+                        <input
+                          type="number"
+                          min="100"
+                          name="price"
+                          value="<%= courses[i].price %>"
+                          class="form-control"
+                          aria-label="price"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Đơn vị tiền tệ</span
+                        >
+                        <select class="form-select" name="unit">
+                          <% if (courses[i].unit == "vnđ") { %>
+                            <option selected value="vnđ">VNĐ</option>
+                            <option value="usd">USD</option>
+                            <% } else { %>
+                                <option  value="vnđ">VNĐ</option>
+                                <option selected value="usd">USD</option>
+                            <% } %>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"
+                          >Đường dẫn ảnh nền khoá học</span
+                        >
+                        <input
+                          type="text"
+                          name="thumbnailUrl"
+                          value="<%= courses[i].thumbnailUrl %>"
+                          class="form-control"
+                          aria-label="thumbnailUrl"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-dismiss="modal"
+                  >
+                    Huỷ bỏ
+                  </button>
+                  <button type="submit" class="btn btn-outline-warning"> Cập nhật </button>
+                </div>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <!-- Modal xoá khoá học -->
+          <div
+            class="modal fade"
+            id="destroyCourseModal-<%= courses[i].courseId %>"
+            tabindex="-1"
+            aria-labelledby="destroyCourseModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="destroyCourseModalLabel">
+                    Xoá khoá học <i class="text-muted fw-bold"><%= courses[i].name %></i>
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <i class="text-muted">Bạn thật sự muốn xoá khoá học này?</i>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Huỷ bỏ
+                  </button>
+                  <a href="/courses/<%= courses[i].courseId %>/destroy" class="btn btn-outline-danger"> Xoá vĩnh viễn </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    <% } %>
+
+    </tbody>
+  </table>
+</div>
+
+<%- include('__footer') -%>
