@@ -17,6 +17,7 @@ const downloads = require("./downloads");
 const multipleRouters = require("./multi-router");
 const multipartFn = require("./multipart");
 const mvc = require("./mvc");
+const onlineFn = require("./online");
 
 // view engine configuration
 app.set("view engine", "ejs");
@@ -43,6 +44,7 @@ downloads(app);
 multipleRouters(app);
 multipartFn(app);
 mvc(app);
+onlineFn(app);
 
 app.use("/*", (req, res, next) => {
   res.status(400).json({
