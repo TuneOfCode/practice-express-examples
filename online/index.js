@@ -12,7 +12,7 @@ const listUsersOnline = (ids) => {
           return `<li id='${id}'> ${id} </li>`;
         })}
     </ul>`;
-  return htmls.join("");
+  return htmls;
 };
 
 const onlineFn = (app) => {
