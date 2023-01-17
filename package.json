@@ -18,9 +18,11 @@
     "express-session": "^1.17.3",
     "multiparty": "^4.2.3",
     "online": "^0.0.1",
-    "redis": "^3.1.2"
+    "redis": "^3.1.2",
+    "vhost": "^3.0.2"
   },
   "devDependencies": {
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.20"
   }
 }

@@ -7,6 +7,7 @@ const session = require("express-session");
 const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const port = 2222;
+const logger = require("morgan");
 
 // import modules
 const auth = require("./auth");
@@ -19,6 +20,7 @@ const multipartFn = require("./multipart");
 const mvc = require("./mvc");
 const onlineFn = require("./online");
 const search = require("./search");
+const vhost = require("./vhost");
 
 // view engine configuration
 app.set("view engine", "ejs");
@@ -36,6 +38,9 @@ app.use(
   })
 );
 
+// logger
+app.use(logger("dev"));
+
 // routers
 auth(app);
 contentNegotiator(app);
@@ -47,6 +52,7 @@ multipartFn(app);
 mvc(app);
 onlineFn(app);
 search(app);
+vhost(app);
 
 app.use("/*", (req, res, next) => {
   res.status(400).json({
