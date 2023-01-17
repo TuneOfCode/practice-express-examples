@@ -21,6 +21,7 @@ const mvc = require("./mvc");
 const onlineFn = require("./online");
 const search = require("./search");
 const vhost = require("./vhost");
+const webService = require("./web-service");
 
 // view engine configuration
 app.set("view engine", "ejs");
@@ -53,6 +54,7 @@ mvc(app);
 onlineFn(app);
 search(app);
 vhost(app);
+webService(app);
 
 app.use("/*", (req, res, next) => {
   res.status(400).json({
